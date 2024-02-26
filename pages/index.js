@@ -1,7 +1,10 @@
-import { useRef, useState } from "react";
+import Head from "next/head";
+import Image from "next/image";
+import { useRef, useState, useEffect } from "react";
+import styles from "../styles/Home.module.css";
 
 export default function Home() {
-  const inputText = useRef<HTMLInputElement & HTMLTextAreaElement>(null);
+  const inputText = useRef();
 
   const [returnedDataOne, setreturnedDataOne] = useState([]);
   const [returnedDataTwo, setreturnedDataTwo] = useState([]);
@@ -10,7 +13,7 @@ export default function Home() {
   const [returnedDataFive, setreturnedDataFive] = useState([]);
   const [returnedDataSix, setreturnedDataSix] = useState([]);
 
-  async function analyzeTextHandler(enteredText: any) {
+  async function analyzeTextHandler(enteredText) {
     const response = await fetch("/api/analyze-text", {
       method: "POST",
       body: JSON.stringify(enteredText),
@@ -29,32 +32,32 @@ export default function Home() {
     setreturnedDataSix(data.message.six);
   }
 
-  function sendText(event: React.FormEvent<HTMLInputElement>) {
+  function sendText(event) {
     event.preventDefault();
 
-    const enteredText = (inputText.current!.value + "").replace(
+    const enteredText = (inputText.current.value + "").replace(
       /[^\u4e00-\u9fff，。《》“”·？]/g,
       ""
     );
 
-    inputText.current!.value = enteredText;
+    inputText.current.value = enteredText;
 
     analyzeTextHandler(enteredText);
   }
 
   return (
-    <div>
+    <div className={styles.container}>
       <h1>HSK Vocab Analyzer</h1>
       <div>
-        <form onSubmit={() => sendText}>
+        <form className={styles.textForm} onSubmit={sendText}>
           <textarea rows={7} ref={inputText} />
           <button>Analyze Text</button>
         </form>
       </div>
 
-      <div>
+      <div className={styles.resultsContainer}>
         <div>
-          <p>HSK 1 words:</p>
+          <p className={styles.titles}>HSK 1 words:</p>
         </div>
         <div>
           {returnedDataOne.map((item, index) => (
@@ -62,7 +65,7 @@ export default function Home() {
           ))}
         </div>
         <div>
-          <p>HSK 2 words:</p>
+          <p className={styles.titles}>HSK 2 words:</p>
         </div>
         <div>
           {returnedDataTwo.map((item, index) => (
@@ -70,7 +73,7 @@ export default function Home() {
           ))}
         </div>
         <div>
-          <p>HSK 3 words:</p>
+          <p className={styles.titles}>HSK 3 words:</p>
         </div>
         <div>
           {returnedDataThree.map((item, index) => (
@@ -78,7 +81,7 @@ export default function Home() {
           ))}
         </div>
         <div>
-          <p>HSK 4 words:</p>
+          <p className={styles.titles}>HSK 4 words:</p>
         </div>
         <div>
           {returnedDataFour.map((item, index) => (
@@ -86,7 +89,7 @@ export default function Home() {
           ))}
         </div>
         <div>
-          <p>HSK 5 words:</p>
+          <p className={styles.titles}>HSK 5 words:</p>
         </div>
         <div>
           {returnedDataFive.map((item, index) => (
@@ -94,7 +97,7 @@ export default function Home() {
           ))}
         </div>
         <div>
-          <p>HSK 6 words:</p>
+          <p className={styles.titles}>HSK 6 words:</p>
         </div>
         <div>
           {returnedDataSix.map((item, index) => (
