@@ -1,113 +1,127 @@
+import Head from "next/head";
+import styles from "../styles/Home.module.css";
 import Image from "next/image";
+import { useRef, useState, useEffect } from "react";
 
 export default function Home() {
+  const inputText = useRef();
+
+  const [returnedDataOne, setreturnedDataOne] = useState([]);
+  const [returnedDataTwo, setreturnedDataTwo] = useState([]);
+  const [returnedDataThree, setreturnedDataThree] = useState([]);
+  const [returnedDataFour, setreturnedDataFour] = useState([]);
+  const [returnedDataFive, setreturnedDataFive] = useState([]);
+  const [returnedDataSix, setreturnedDataSix] = useState([]);
+
+  async function analyzeTextHandler(enteredText) {
+    const response = await fetch("/api/analyze-text", {
+      method: "POST",
+      body: JSON.stringify(enteredText),
+      headers: {
+        "Contect-type": "application/json",
+      },
+    });
+
+    const data = await response.json();
+
+    setreturnedDataOne(data.message.one);
+    setreturnedDataTwo(data.message.two);
+    setreturnedDataThree(data.message.three);
+    setreturnedDataFour(data.message.four);
+    setreturnedDataFive(data.message.five);
+    setreturnedDataSix(data.message.six);
+  }
+
+  function sendText(event) {
+    event.preventDefault();
+
+    const enteredText = (inputText.current.value + "").replace(
+      /[^\u4e00-\u9fff，。《》“”·？]/g,
+      ""
+    );
+
+    inputText.current.value = enteredText;
+
+    analyzeTextHandler(enteredText);
+  }
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <div className={styles.container}>
+      <h1>HSK Vocab Analyzer</h1>
+      <div>
+        <form className={styles.textForm} onSubmit={sendText}>
+          <textarea rows={7} ref={inputText} />
+          <button>Analyze Text</button>
+        </form>
+      </div>
+
+      <div className={styles.resultsContainer}>
+        <div>
+          <p className={styles.titles}>HSK 1 words:</p>
+        </div>
+        <div>
+          {returnedDataOne.map((item, index) => (
+            <span key={item}>{(index ? "，" : "") + item}</span>
+          ))}
+        </div>
+        <div>
+          <p className={styles.titles}>HSK 2 words:</p>
+        </div>
+        <div>
+          {returnedDataTwo.map((item, index) => (
+            <span key={item}>{(index ? "，" : "") + item}</span>
+          ))}
+        </div>
+        <div>
+          <p className={styles.titles}>HSK 3 words:</p>
+        </div>
+        <div>
+          {returnedDataThree.map((item, index) => (
+            <span key={item}>{(index ? "，" : "") + item}</span>
+          ))}
+        </div>
+        <div>
+          <p className={styles.titles}>HSK 4 words:</p>
+        </div>
+        <div>
+          {returnedDataFour.map((item, index) => (
+            <span key={item}>{(index ? "，" : "") + item}</span>
+          ))}
+        </div>
+        <div>
+          <p className={styles.titles}>HSK 5 words:</p>
+        </div>
+        <div>
+          {returnedDataFive.map((item, index) => (
+            <span key={item}>{(index ? "，" : "") + item}</span>
+          ))}
+        </div>
+        <div>
+          <p className={styles.titles}>HSK 6 words:</p>
+        </div>
+        <div>
+          {returnedDataSix.map((item, index) => (
+            <span key={item}>{(index ? "，" : "") + item}</span>
+          ))}
         </div>
       </div>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50 text-balance`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+      <h2>How does it work?</h2>
+      <p>
+        Simply enter your Chinese (Mandarin) text above and analyze
+        <br />
+        Get a list of words distributed by HSK level
+        <br />
+        Common punctuation marks like 。，“” 《》· ？help split the text into
+        sections but everything else is ignored
+      </p>
+      <h3>Please Note!</h3>
+      <p>
+        There is no inference of meaning with regards to context. For example,
+        the HSK 6 word <br /> 爱不释手 will return the HSK 6 word - 爱不释手 as
+        well as two HSK 1 words - 爱，不
+      </p>
+      <p></p>
+    </div>
   );
 }
