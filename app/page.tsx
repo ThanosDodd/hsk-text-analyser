@@ -17,7 +17,7 @@ export default function Home() {
       test: enteredText,
     };
 
-    const response = await fetch("https://hsk-analyser-api.onrender.com/", {
+    const response = await fetch("https://hsk-analyser-api.onrender.com", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -29,12 +29,12 @@ export default function Home() {
 
     console.log(data);
 
-    setreturnedDataOne(data.message.one);
-    setreturnedDataTwo(data.message.two);
-    setreturnedDataThree(data.message.three);
-    setreturnedDataFour(data.message.four);
-    setreturnedDataFive(data.message.five);
-    setreturnedDataSix(data.message.six);
+    setreturnedDataOne(data.one);
+    setreturnedDataTwo(data.two);
+    setreturnedDataThree(data.three);
+    setreturnedDataFour(data.four);
+    setreturnedDataFive(data.five);
+    setreturnedDataSix(data.six);
   }
 
   function sendText(event: React.FormEvent<HTMLFormElement>) {
