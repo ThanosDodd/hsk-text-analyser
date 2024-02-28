@@ -11,11 +11,11 @@ export default function Home() {
   const [returnedDataSix, setreturnedDataSix] = useState([]);
 
   async function analyzeTextHandler(enteredText: any) {
-    const response = await fetch("/api/analyze-text", {
+    const response = await fetch("https://hsk-analyser-api.onrender.com/", {
       method: "POST",
       body: JSON.stringify(enteredText),
       headers: {
-        "Contect-type": "application/json",
+        "Contect-Type": "application/json",
       },
     });
 
