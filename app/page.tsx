@@ -23,7 +23,7 @@ export default function Home() {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
-        "Contect-Type": "application/json",
+        "Content-Type": "application/json",
       },
     });
 
