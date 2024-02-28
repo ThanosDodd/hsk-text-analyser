@@ -1,4 +1,6 @@
-import { useRef, useState, useEffect } from "react";
+"use client";
+
+import { useRef, useState } from "react";
 
 export default function Home() {
   const inputText = useRef<HTMLTextAreaElement>(null);
