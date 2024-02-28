@@ -13,15 +13,21 @@ export default function Home() {
   const [returnedDataSix, setreturnedDataSix] = useState([]);
 
   async function analyzeTextHandler(enteredText: any) {
+    const requestBody = {
+      test: enteredText,
+    };
+
     const response = await fetch("https://hsk-analyser-api.onrender.com/", {
       method: "POST",
-      body: JSON.stringify(enteredText),
+      body: JSON.stringify(requestBody),
       headers: {
         "Contect-Type": "application/json",
       },
     });
 
     const data = await response.json();
+
+    console.log(data);
 
     setreturnedDataOne(data.message.one);
     setreturnedDataTwo(data.message.two);
