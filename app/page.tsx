@@ -13,6 +13,8 @@ export default function Home() {
   const [returnedDataSix, setreturnedDataSix] = useState([]);
 
   async function analyzeTextHandler(enteredText: any) {
+    console.log(enteredText);
+
     const requestBody = {
       test: enteredText,
     };
