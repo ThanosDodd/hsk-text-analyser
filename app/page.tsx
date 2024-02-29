@@ -53,82 +53,89 @@ export default function Home() {
   }
 
   return (
-    <div>
-      <h1>HSK Vocab Analyzer</h1>
-      <div>
-        <form onSubmit={sendText}>
-          <textarea rows={7} ref={inputText} />
-          <button>Analyze Text</button>
-        </form>
-      </div>
+    <div className="text-center">
+      <section className="mx-auto">
+        <h1>HSK Vocab Analyzer</h1>
+        <div>
+          <form onSubmit={sendText}>
+            <textarea rows={7} ref={inputText} />
+            <button className="block mx-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out">
+              Analyze Text
+            </button>
+          </form>
+        </div>
+      </section>
 
-      <div>
-        <div>
-          <p>HSK 1 words:</p>
-        </div>
-        <div>
-          {returnedDataOne.map((item, index) => (
-            <span key={item}>{(index ? "，" : "") + item}</span>
-          ))}
-        </div>
-        <div>
-          <p>HSK 2 words:</p>
-        </div>
-        <div>
-          {returnedDataTwo.map((item, index) => (
-            <span key={item}>{(index ? "，" : "") + item}</span>
-          ))}
-        </div>
-        <div>
-          <p>HSK 3 words:</p>
-        </div>
-        <div>
-          {returnedDataThree.map((item, index) => (
-            <span key={item}>{(index ? "，" : "") + item}</span>
-          ))}
-        </div>
-        <div>
-          <p>HSK 4 words:</p>
-        </div>
-        <div>
-          {returnedDataFour.map((item, index) => (
-            <span key={item}>{(index ? "，" : "") + item}</span>
-          ))}
-        </div>
-        <div>
-          <p>HSK 5 words:</p>
-        </div>
-        <div>
-          {returnedDataFive.map((item, index) => (
-            <span key={item}>{(index ? "，" : "") + item}</span>
-          ))}
-        </div>
-        <div>
-          <p>HSK 6 words:</p>
-        </div>
-        <div>
-          {returnedDataSix.map((item, index) => (
-            <span key={item}>{(index ? "，" : "") + item}</span>
-          ))}
-        </div>
-      </div>
+      <table className="mx-auto mt-1">
+        <tbody>
+          <tr>
+            <td className="border-2 border-sky-500">HSK 1 words:</td>
+            <td className="border-2 border-sky-500">
+              {returnedDataOne.map((item, index) => (
+                <span key={item}>{(index ? "，" : "") + item}</span>
+              ))}
+            </td>
+          </tr>
+          <tr>
+            <td className="border-2 border-sky-500">HSK 2 words:</td>
+            <td className="border-2 border-sky-500">
+              {returnedDataTwo.map((item, index) => (
+                <span key={item}>{(index ? "，" : "") + item}</span>
+              ))}
+            </td>
+          </tr>
+          <tr>
+            <td className="border-2 border-sky-500">HSK 3 words:</td>
+            <td className="border-2 border-sky-500">
+              {returnedDataThree.map((item, index) => (
+                <span key={item}>{(index ? "，" : "") + item}</span>
+              ))}
+            </td>
+          </tr>
+          <tr>
+            <td className="border-2 border-sky-500">HSK 4 words:</td>
+            <td className="border-2 border-sky-500">
+              {returnedDataFour.map((item, index) => (
+                <span key={item}>{(index ? "，" : "") + item}</span>
+              ))}
+            </td>
+          </tr>
+          <tr>
+            <td className="border-2 border-sky-500">HSK 5 words:</td>
+            <td className="border-2 border-sky-500">
+              {returnedDataFive.map((item, index) => (
+                <span key={item}>{(index ? "，" : "") + item}</span>
+              ))}
+            </td>
+          </tr>
+          <tr>
+            <td className="border-2 border-sky-500">HSK 6 words:</td>
+            <td className="border-2 border-sky-500">
+              {returnedDataSix.map((item, index) => (
+                <span key={item}>{(index ? "，" : "") + item}</span>
+              ))}
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-      <h2>How does it work?</h2>
-      <p>
-        Simply enter your Chinese (Mandarin) text above and analyze
-        <br />
-        Get a list of words distributed by HSK level
-        <br />
-        Common punctuation marks like 。，“” 《》· ？help split the text into
-        sections but everything else is ignored
-      </p>
-      <h3>Please Note!</h3>
-      <p>
-        There is no inference of meaning with regards to context. For example,
-        the HSK 6 word <br /> 爱不释手 will return the HSK 6 word - 爱不释手 as
-        well as two HSK 1 words - 爱，不
-      </p>
-      <p></p>
+      <h2 className="mt-2">How does it work?</h2>
+      <div className="inline-block text-left">
+        <p>
+          Simply enter your Chinese (Mandarin) text above and analyze
+          <br />
+          Get a list of words distributed by HSK level
+          <br />
+          Common punctuation marks like 。，“” 《》· ？help split the text into
+          sections but everything else is ignored
+        </p>
+        <h3>Please Note!</h3>
+        <p>
+          There is no inference of meaning with regards to context. For example,
+          the HSK 6 word <br /> 爱不释手 will return the HSK 6 word - 爱不释手
+          as well as two HSK 1 words - 爱，不
+        </p>
+      </div>
     </div>
   );
 }
