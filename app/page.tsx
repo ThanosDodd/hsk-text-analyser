@@ -2,6 +2,8 @@
 
 import { useRef, useState } from "react";
 
+import Image from "next/image";
+
 export default function Home() {
   const inputText = useRef<HTMLTextAreaElement>(null);
 
@@ -53,9 +55,9 @@ export default function Home() {
   }
 
   return (
-    <div className="text-center">
+    <div className="text-center font-sans">
       <section className="mx-auto">
-        <h1>HSK Vocab Analyzer</h1>
+        <h1>HSK Text Analyser</h1>
         <div>
           <form onSubmit={sendText}>
             <textarea rows={7} ref={inputText} />
@@ -120,22 +122,36 @@ export default function Home() {
       </table>
 
       <h2 className="mt-2">How does it work?</h2>
-      <div className="inline-block text-left">
+      <div className="inline-block text-left max-w-prose m-2">
         <p>
-          Simply enter your Chinese (Mandarin) text above and analyze
+          Simply enter your Chinese (Mandarin) text above and analyse.
           <br />
-          Get a list of words distributed by HSK level
+          Get a list of words distributed by HSK level.
           <br />
           Common punctuation marks like 。，“” 《》· ？help split the text into
-          sections but everything else is ignored
+          sections but everything else is ignored.
         </p>
-        <h3>Please Note!</h3>
         <p>
-          There is no inference of meaning with regards to context. For example,
-          the HSK 6 word <br /> 爱不释手 will return the HSK 6 word - 爱不释手
-          as well as two HSK 1 words - 爱，不
+          <span className="font-black">Please Note!</span> There is no inference
+          of meaning with regards to context. For example, the HSK 6 word
+          爱不释手 will return the HSK 6 word 爱不释手 as well as the two HSK 1
+          words 爱 and 不.
         </p>
       </div>
+
+      <a
+        href={"https://github.com/ThanosDodd/hsk-text-analyser"}
+        target="_blank"
+        rel="noreferrer"
+      >
+        <Image
+          src={"/github_icon.png"}
+          width={40}
+          height={40}
+          alt={`github icon`}
+          className="mx-auto mb-4 hover:cursor-pointer"
+        />
+      </a>
     </div>
   );
 }
