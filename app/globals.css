@@ -2,34 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
+/* Optional: Add global HTML structure styling */
+html,
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  @apply text-black bg-slate-300;
 }
 
 h1 {
-  font-size: 2rem;
+  @apply text-2xl;
 }
 
 h2 {
-  font-size: 1.5rem;
+  @apply text-xl;
 }
 
 p {
-  font-size: 1rem;
+  @apply text-base;
 }
 
+/* Optional: Utility for balanced text wrapping */
 @layer utilities {
   .text-balance {
     text-wrap: balance;

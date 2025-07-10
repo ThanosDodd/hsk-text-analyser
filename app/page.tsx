@@ -4,6 +4,10 @@ import { useRef, useState } from "react";
 
 import Image from "next/image";
 
+import { Bungee_Shade } from "next/font/google";
+const bungee = Bungee_Shade({ weight: "400", subsets: ["latin"] });
+
+
 export default function Home() {
   const inputText = useRef<HTMLTextAreaElement>(null);
 
@@ -57,13 +61,15 @@ export default function Home() {
   return (
     <div className="text-center font-sans">
       <section className="mx-auto">
-        <h1>HSK Text Analyser</h1>
+        <h1 className={`${bungee.className} text-4xl p-2`}>HSK Text Analyser</h1>
         <div>
           <form onSubmit={sendText}>
             <textarea rows={7} ref={inputText} />
-            <button className="block mx-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out">
-              Analyze Text
+            <p className="text-xs mt-2 max-w-prose mx-auto">*We are using the free tier on Render to host the API, so please wait a minute and try again if it takes a while to respond.</p>
+            <button className="block mx-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 m-4 rounded transition duration-300 ease-in-out">
+              Analyse Text
             </button>
+           
           </form>
         </div>
       </section>
@@ -121,8 +127,7 @@ export default function Home() {
         </tbody>
       </table>
 
-      <h2 className="mt-2">How does it work?</h2>
-      <div className="inline-block text-left max-w-prose m-2">
+      <div className="inline-block text-left max-w-prose m-2 border-2 border-slate-700 p-4 bg-amber-50">
         <p>
           Simply enter your Chinese (Mandarin) text above and analyse.
           <br />
@@ -149,9 +154,21 @@ export default function Home() {
           width={40}
           height={40}
           alt={`github icon`}
-          className="mx-auto mb-4 hover:cursor-pointer"
+          className="mx-auto mb-4 hover:cursor-pointer mt-10"
         />
       </a>
+
+      <footer className="w-full text-center text-sm text-gray-500 bg-slate-300">
+      Made with ❤️ by{" "}
+      <a
+        href="https://www.thanosdodd.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-blue-600 hover:underline"
+      >
+        Thanos Dodd
+      </a>
+    </footer>
     </div>
   );
 }
