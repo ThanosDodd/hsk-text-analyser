@@ -1,4 +1,4 @@
-Categorise Mandarin text by HSK level
+Categorise words in Mandarin text by HSK level
 
 This website is deployed at https://hsk-text-analyser.vercel.app/
 
